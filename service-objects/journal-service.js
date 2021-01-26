@@ -2,15 +2,21 @@
 const JournalService = {
 
     //check use of .and here
-    getPost(db,user,date){
-        return('db')
+    getPost(db,user_name){
+        return db
             .select('*')
             .from('user_posts')
-            .where({user, date})
+            .where({user_name})
            
     },
+    getPostById(db,id){
+        return db
+            .select('*')
+            .from('user_posts')
+            .where({id})
+    },
     createPost(db,newPost){
-        return('db')
+        return db
             .insert( newPost )
             .into ('user_posts')
             .returning('*')
@@ -18,13 +24,17 @@ const JournalService = {
                 return result[0]
             })
     },
-    deletePost(db, id){
-        return('db')
+    deletePost(db,id){
+        return db
+            .select('*')
+            .from('user_posts')
             .where({id})
             .delete()
     },
     updatePost(db,id, fieldsToUpdate){
-        return('db')
+        return db
+            .select('*')
+            .from('user_posts')
             .where({id})
             .update(fieldsToUpdate)
 
@@ -36,3 +46,5 @@ const JournalService = {
 
 
 }
+
+module.exports = { JournalService }
