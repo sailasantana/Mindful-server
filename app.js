@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 
-const { NODE_ENV } = require('./misc/config')
+const { NODE_ENV } = require('./config')
 const LoginRouter = require('./routers/login-router')
 const JournalRouter = require('./routers/journal-router')
 const validateToken = require('./misc/validateToken')

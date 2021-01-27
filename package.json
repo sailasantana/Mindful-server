@@ -5,7 +5,14 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "migrate": "postgrator --config postgrator-config.js",
+    "predeploy": "npm audit",
+    "deploy": "git push heroku master",
+    "postdeploy": "npm run migrate:production",
+    "migrate:production": "heroku run npm run migrate"
+
+
   },
   "keywords": [],
   "author": "",
@@ -21,7 +28,9 @@
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
     "pg": "^8.5.1",
+    "postgrator-cli": "^3.2.0",
     "winston": "^3.3.3",
     "xss": "^1.0.8"
+    
   }
 }

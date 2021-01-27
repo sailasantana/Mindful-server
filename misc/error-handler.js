@@ -1,4 +1,4 @@
-const {NODE_ENV} = require('./config')
+const {NODE_ENV} = require('../config')
 const logger = require('./winston-logger')
 
 function errorHandler(error, req, res, next){
