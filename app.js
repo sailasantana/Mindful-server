@@ -18,7 +18,7 @@ app.use(cors())
 app.use(helmet())
 
 app.get('/',  (req, res) => {
-  res.send('Hello, world!')
+  res.send('Welcome to Mind Your Moment Api')
 })
 
 app.get('/validate', validateToken, (req,res) => {

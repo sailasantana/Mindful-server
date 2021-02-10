@@ -1,11 +1,11 @@
 
-const express = require('express')
-const bodyParser = express.json()
-const LoginRouter = express.Router()
-const { LoginService } = require('../service-objects/login-service')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-//const db = require('../server')
+const express = require('express');
+const bodyParser = express.json();
+const LoginRouter = express.Router();
+const { LoginService } = require('../service-objects/login-service');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+//const db = require('../server');
 const app = express();
 
 
@@ -32,7 +32,6 @@ LoginRouter
             lastName : result.lastName
         }
 
-        //console.log(sessionObj)
 
         bcrypt.compare(password, result.password)
             .then( result => {
@@ -55,10 +54,46 @@ LoginRouter
 
 })
 
+
+LoginRouter
+    .route('/validate')
+    .get(( req, res ) => {
+        const { session_token } = req.headers;
+        console.log( req.headers );
+        jwt.verify( session_token, 'secret', ( err, tokenDecoded ) => {
+            if( err ){
+                res.statusMessage = "Not authorized.";
+                return res.status( 401 ).end();
+            }
+            else{
+                console.log( tokenDecoded );
+                return res.status( 200 ).json({
+                    message : `Welcome back ${tokenDecoded.firstName} ${tokenDecoded.lastName}!`
+                });
+            }
+        });
+    });
+
  LoginRouter
     .route('/signup')
     .post(bodyParser, (req,res,next) => {
         const { user_name, password , first_name, last_name } = req.body
+
+        for (const field of ['user_name', 'password', 'first_name', 'last_name']) {
+            if (!req.body[field]) {
+                return res.status(400).json({error: `Missing '${field}' in request body`});
+            }
+        }
+
+        LoginService.hasDuplicateUser(
+            req.app.get('db'),
+            user_name
+        )
+            .then(hasDuplicateUser => {
+                if (hasDuplicateUser) {
+                    return res.status(400).json({error: `Username already taken.`});
+                }
+            })
 
         bcrypt.hash(password, 10)
             .then( hashedPassword => {

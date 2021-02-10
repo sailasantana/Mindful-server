@@ -16,6 +16,12 @@ const LoginService = {
                 return result[0]
             })
 
+    },
+    hasDuplicateUser(db, user_name) {
+        return db('journal_users')
+            .where({user_name})
+            .first()
+            .then(user => !!user);
     }
 
 }

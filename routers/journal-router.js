@@ -12,7 +12,9 @@ const serializePost = post => ({
     id: post.id,
     title : xss(post.title),
     content : xss(post.content),
-    modified: moment(post.date_created).format('MM/DD/YYYY')
+    date_modified: moment(post.date_created).format('MM/DD/YYYY'),
+    user_name: post.user_name
+
 })
 
 
