@@ -41,6 +41,37 @@ Live : https://mindful.sailasantana.vercel.app/
 ![Edit](screenshots/edit.png)
 
 
+## Scream 
+
+![Scream](screenshots/scream.png)
+
+
+# API Endpoints
+
+## Users and Authentication
+
+### POST
+- /api/login (login)
+- /api/signup (sign Up)
+
+## Add/Delete/Edit Entries
+
+### POST
+- api/:user_name (adds an entry)
+
+### DELETE
+- api/:user_name/:id (deletes an entry)
+
+### PATCH
+- api/:user_name/:id (updates an entry)
+
+## Dashboard
+
+### GET
+- /api/:username (gets user's entries upon successful login)
+- /api/:username/:id (gets specific entry)
+
+
 
 # Environment Set Up
 

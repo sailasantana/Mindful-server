@@ -59,14 +59,13 @@ LoginRouter
     .route('/validate')
     .get(( req, res ) => {
         const { session_token } = req.headers;
-        console.log( req.headers );
         jwt.verify( session_token, 'secret', ( err, tokenDecoded ) => {
             if( err ){
                 res.statusMessage = "Not authorized.";
                 return res.status( 401 ).end();
             }
             else{
-                console.log( tokenDecoded );
+                
                 return res.status( 200 ).json({
                     message : `Welcome back ${tokenDecoded.firstName} ${tokenDecoded.lastName}!`
                 });
