@@ -54,7 +54,7 @@ Live : https://mindful.sailasantana.vercel.app/
 - /api/login (login)
 - /api/signup (sign Up)
 
-## Add/Delete/Edit Entries
+## Entries
 
 ### POST
 - api/:user_name (adds an entry)
